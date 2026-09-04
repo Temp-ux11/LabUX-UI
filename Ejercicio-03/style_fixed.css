@@ -1,0 +1,363 @@
+/* =========================================================
+   STYLE INDEX
+   1. General and variables
+   2. Typography
+   3. Header and navigation
+   4. Featured activities
+   5. Multimedia
+   6. Weekly highlights
+   7. Map
+   8. Footer
+   9. Responsive layout
+   ========================================================= */
+
+/* 1. General and variables */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-main: rgb(23, 64, 133);
+    --color-multimedia: rgb(198, 158, 0);
+    --color-buttons: rgb(74, 86, 130);
+    --color1: rgb(25, 117, 97);
+    --color2: rgb(40, 24, 24);
+    --color-background: ivory;
+    --color-light: rgb(245, 245, 245);
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    color: var(--color2);
+    background-color: var(--color-background);
+    line-height: 1.5;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: inherit;
+}
+
+/* 2. Typography */
+.main-titles,
+main h2 {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 28px;
+    color: var(--color-main);
+}
+
+.article-titles,
+article h3,
+footer h3 {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 22px;
+    color: var(--color-main);
+}
+
+.extrabuttons{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 22px;
+    color: var(--color-buttons);
+}
+
+.multimedia{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 42px;
+    color: var(--color-multimedia); 
+}
+
+.paragraph-texts,
+p {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: var(--color2);
+}
+
+.hidden-text {
+    display: none;
+}
+
+/* General sections */
+main section {
+    padding: 50px 5%;
+}
+
+main section h2 {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* 3. Header */
+#main-header {
+    background-color: var(--color-background);
+    padding: 25px 5%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    border-bottom: 16px solid var(--color-main);
+}
+
+#main-header img {
+    width: 300px;
+    max-width: 100%;
+    height: auto;
+}
+
+nav[role="navigation"] {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 4. Featured activities */
+#remarkable {
+    background-color: var(--color-background);
+    border-bottom: 16px solid var(--color-main);
+}
+
+#remarkable > div,
+main section:nth-of-type(3) > div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+#remarkable article,
+main section:nth-of-type(3) article {
+    flex: 1 1 280px;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(40, 24, 24, 0.15);
+    display: flex;
+    flex-direction: column;
+}
+
+#remarkable article img,
+main section:nth-of-type(3) article img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+#remarkable article h3,
+#remarkable article p,
+#remarkable article a,
+main section:nth-of-type(3) article h3,
+main section:nth-of-type(3) article a {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#remarkable article h3,
+main section:nth-of-type(3) article h3 {
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+#remarkable article p {
+    margin-bottom: 20px;
+}
+
+#remarkable article a,
+main section:nth-of-type(3) article a {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+/* 5. Multimedia */
+
+main section:nth-of-type(2) {
+    background: url("assets/quehacerenbuenosaires.jpg") center center no-repeat;
+    background-size: cover
+}
+
+main section:nth-of-type(2) > div {
+    display: flex;
+    justify-content: center;
+}
+
+main section video {
+    width: 100%;
+    max-width: 1200px;
+    border-radius: 8px;
+    margin: 30px 5%;
+}
+
+/* 6. Weekly highlights */
+main section:nth-of-type(3) {
+    background-color: var(--color-background);
+}
+
+/* 7. Map */
+.map-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(40, 24, 24, 0.15);
+}
+
+.map-container iframe {
+    width: 100%;
+    display: block;
+}
+
+/* 8. Links and buttons */
+.main-button {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 18px;
+    color: var(--color2);
+    text-decoration: none;
+    padding: 8px 15px;
+    transition: all linear 0.25s;
+    border-radius: 0px;
+}
+
+.extrabuttons {
+    text-decoration: none;
+    padding: 8px 15px;
+    transition: all linear 0.25s;
+    border-radius: 5px;
+}
+
+.main-button:hover {
+    color: var(--color-main);
+    background-color: rgb(213, 213, 250);
+    border-radius: 5px;
+}
+
+article a {
+    display: inline-block;
+    width: fit-content;
+    font-weight: 600;
+    color: var(--color-main);
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-main);
+    transition: all linear 0.25s;
+}
+
+article a:hover {
+    color: var(--color1);
+    border-color: var(--color1);
+}
+
+/* 9. Footer */
+footer {
+    background-color: var(--color-main);
+    color: white;
+    padding: 50px 5%;
+}
+
+.footer-brand {
+    margin-bottom: 30px;
+}
+
+.footer-brand img {
+    max-width: 200px;
+    height: auto;
+}
+
+footer > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+footer nav {
+    flex: 1 1 220px;
+}
+
+footer h3 {
+    color: white;
+    margin-bottom: 15px;
+}
+
+footer ul {
+    list-style: none;
+}
+
+footer li {
+    margin-bottom: 10px;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* 10. Responsive layout */
+@media only screen and (max-width: 600px) {
+    #main-header {
+        flex-direction: column;
+        padding: 25px 5%;
+    }
+
+    nav[role="navigation"] {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .main-button {
+        display: block;
+        width: auto;
+        text-align: center;
+        margin: 2px 0;
+        border-bottom: 1px solid var(--color-main);
+        border-radius: 0;
+    }
+
+    main section {
+        padding: 35px 5%;
+    }
+
+    #remarkable > div,
+    main section:nth-of-type(3) > div {
+        gap: 20px;
+    }
+
+    #remarkable article,
+    main section:nth-of-type(3) article {
+        max-width: none;
+    }
+
+    footer > div:last-child {
+        flex-direction: column;
+        gap: 25px;
+    }
+}
