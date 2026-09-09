@@ -1,0 +1,463 @@
+/* 
+   Palette:
+     --paper           #E8E1C8  fondo cálido tipo papel de archivo
+     --ink              #171F19  casi-negro verdoso, "vacío" de terminal
+     --steel            #34433D  paneles / superficies metálicas
+     --terminal-green   #4CDB6C  acento fósforo, texto de terminal
+     --terminal-green-dim #2E8A47 verde secundario, bordes suaves
+     --rust             #C0532A  óxido / advertencia / divisores
+     --brass            #C9A227  latón, remaches, detalles nobles
+
+   Typographies:
+     Oswald          → titulares, estilo cartel de propaganda
+     Share Tech Mono → etiquetas y textos "de consola"
+     Archivo         → cuerpo de texto, lectura cómoda
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Share+Tech+Mono&family=Archivo:wght@400;500;600&display=swap');
+
+/* ---------- 1. Root ---------- */
+
+:root {
+    --paper: #E8E1C8;
+    --paper-dim: #DCD3B4;
+    --ink: #171F19;
+    --steel: #34433D;
+    --steel-light: #46584f;
+    --terminal-green: #4CDB6C;
+    --terminal-green-dim: #2E8A47;
+    --rust: #C0532A;
+    --brass: #C9A227;
+    --terminal-screen: #2b2b2b;
+
+    --font-display: 'Oswald', 'Arial Narrow', sans-serif;
+    --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+    --font-body: 'Archivo', system-ui, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* ---------- Typography ---------- */
+
+
+
+body {
+    margin: 0;
+    background-color: var(--terminal-screen);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    background-image:
+        radial-gradient(rgba(0, 255, 64, 0.253) 1px, transparent 1px);
+    background-size: 3px 3px;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--paper-dim);
+    margin: 50px 50px;
+}
+
+p {
+    
+    color: var(--paper-dim)
+}
+
+
+/* Hidden Title */
+.hidden-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+
+a {
+    color: var(--rust);
+    text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+    color: var(--terminal-green-dim);
+}
+
+/* ---------- 2. Header ---------- */
+
+#main-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.75rem 2rem;
+    background-color: var(--steel);
+    border-bottom: 3px solid var(--brass);
+    position: relative;
+}
+
+/* Rivets */
+#main-header {
+    background-image:
+
+        radial-gradient(circle at 14px 14px, var(--brass) 0 4px, transparent 4.5px),
+
+        radial-gradient(circle at calc(100% - 14px) 14px, var(--brass) 0 4px, transparent 4.5px),
+
+        radial-gradient(circle at 14px calc(100% - 14px), var(--brass) 0 4px, transparent 4.5px),
+
+        radial-gradient(circle at calc(100% - 14px) calc(100% - 14px), var(--brass) 0 4px, transparent 4.5px);
+        
+    background-repeat: no-repeat;
+}
+
+#main-header a[aria-label] img {
+    height: 42px;
+    margin: 10px 10px 10px 10px;
+    width: auto;
+    filter: drop-shadow(0 0 6px rgba(76, 219, 108, 0.45));
+}
+
+/* Dropdown-Menu */
+#main-header > .dropdown-menu {
+    display: flex;
+}
+
+nav[role="navigation"] {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.main-button {
+    font-family: var(--font-mono);
+    font-size: 25px;
+    color: var(--paper);
+    padding: 0.5px 25px;
+    border: 1px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease, text-shadow 0.15s ease;
+}
+
+.main-button:hover,
+.main-button:focus-visible {
+    color: var(--terminal-green);
+    border-color: var(--terminal-green-dim);
+    text-shadow: 0 0 6px rgba(76, 219, 108, 0.6);
+}
+
+/* Dropdown-Menu */
+.dropdown {
+    position: relative;
+}
+
+.dropdown > .dropdown-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 125%;
+    left: 0;
+    min-width: 190px;
+    background: var(--ink);
+    border: 1px solid var(--terminal-green-dim);
+    padding: 0.35rem 0;
+    z-index: 20;
+}
+
+.dropdown:hover > .dropdown-menu,
+.dropdown:focus-within > .dropdown-menu {
+    display: flex;
+}
+
+.dropdown > .dropdown-menu a {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--paper-dim);
+    padding: 0.5rem 1rem;
+}
+
+.dropdown > .dropdown-menu a::before {
+    content: "› ";
+    color: var(--terminal-green-dim);
+}
+
+.dropdown > .dropdown-menu a:hover,
+.dropdown > .dropdown-menu a:focus-visible {
+    background: var(--steel-light);
+    color: var(--terminal-green);
+}
+
+/* ---------- 3. Body ---------- */
+
+main {
+    display: block;
+}
+
+main > section {
+    padding: 3rem 2rem;
+    border-bottom: 1px solid rgba(23, 31, 25, 0.12);
+}
+
+main > section > h2 {
+    font-size: 5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    position: relative;
+    padding-bottom: 0.6rem;
+    color: var(--paper);
+}
+
+/* Decorative Dashes */
+main > section > h2::after {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 3px;
+    background: var(--rust);
+    margin: 0.6rem auto 0;
+}
+
+/* ---------- 4. Current Activities Panels ---------- */
+
+#sideactivities > div,
+main > section:nth-of-type(3) > div {
+    display: grid;
+    gap: 3.75rem;
+    max-width: 1200px;
+    margin: 2rem auto 8rem;
+}
+
+article[role="article"] {
+    background: var(--steel);
+    border: 1px solid var(--rust);
+    position: relative;
+    padding-bottom: 1.25rem;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+article[role="article"]::before,
+article[role="article"]::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 2px solid var(--brass);
+    pointer-events: none;
+}
+article[role="article"]::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+}
+article[role="article"]::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+}
+
+article[role="article"]:hover {
+    border-color: var(--terminal-green-dim);
+}
+
+/* Desaturated Images */
+article[role="article"] img {
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    filter: saturate(0.9) sepia(0.12);
+    border-bottom: 3px solid var(--rust);
+}
+
+article[role="article"] h3 {
+    font-size: 2.5em;
+    padding: 0.9rem 1.1rem 0.3rem;
+}
+
+article[role="article"] p {
+    padding: 0 4rem;
+    font-size: 1em;
+    color: var(--paper);
+}
+
+article[role="article"] > a {
+    display: inline-block;
+    margin: 0.75rem 1.1rem 0;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--rust);
+    border-bottom: 1px solid currentColor;
+}
+
+article[role="article"] > a::after {
+    content: " »";
+}
+
+article[role="article"] > a:hover {
+    color: var(--terminal-green-dim);
+}
+
+/* ---------- 5. Multimedia Player ---------- */
+
+main > section:has(video) {
+    background: var(--ink);
+    padding: 3.5rem 2rem;
+    border-bottom: 3px solid var(--brass);
+}
+
+main > section:has(video) h2 {
+    color: var(--paper);
+}
+
+main > section:has(video) h2::after {
+    background: var(--terminal-green);
+}
+
+main > section:has(video) > div {
+    max-width: 1100px;
+    margin: 2rem auto 0;
+    position: relative;
+    border: 2px solid var(--terminal-green-dim);
+    box-shadow: 0 0 24px rgba(76, 219, 108, 0.18);
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(76, 219, 108, 0.05) 0px,
+            rgba(76, 219, 108, 0.05) 1px,
+            transparent 1px,
+            transparent 3px
+        );
+}
+
+main > section:has(video) video {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: contrast(1.05) saturate(0.95);
+}
+
+/* ---------- 6. Map ---------- */
+
+section:has(#titulo-mapa) {
+    background: var(--terminal-screen);
+
+}
+
+#titulo-mapa {
+    text-align: center;
+}
+
+.map-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    border: 2px solid var(--steel);
+    outline: 1px solid var(--brass);
+    outline-offset: 4px;
+    padding: 4px;
+    background: var(--ink);
+}
+
+/* Map Color Correction */
+.map-container iframe {
+    display: block;
+    width: 100%;
+    filter: grayscale(0.15) contrast(1.05);
+}
+
+/* ---------- 7. Footer ---------- */
+
+footer[role="contentinfo"] {
+    background: var(--ink);
+    color: var(--paper-dim);
+    padding: 3rem 2rem 2rem;
+    border-top: 4px solid var(--brass);
+}
+
+.footer-brand {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.footer-brand img {
+    border-radius: 50%;
+    border: 2px solid var(--brass);
+    padding: 4px;
+    background: var(--steel);
+}
+
+footer[role="contentinfo"] > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1700px;
+    margin: 0 auto;
+}
+
+footer[role="contentinfo"] h3 {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--terminal-green);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--terminal-green-dim);
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+footer[role="contentinfo"] ul {
+    list-style: none;
+    margin: 10px 50px;
+    padding: 0;
+}
+
+footer[role="contentinfo"] li {
+    margin-bottom: 0.5rem;
+}
+
+footer[role="contentinfo"] a {
+    color: var(--paper-dim);
+    font-size: 0.9rem;
+}
+
+footer[role="contentinfo"] a:hover,
+footer[role="contentinfo"] a:focus-visible {
+    color: var(--terminal-green);
+}
+
+/* ---------- 8. Responsive ---------- */
+
+@media (max-width: 720px) {
+    #main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    #main-header > .dropdown-menu,
+    nav[role="navigation"] {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .dropdown > .dropdown-menu {
+        position: static;
+        border-left: 2px solid var(--terminal-green-dim);
+        margin-left: 0.75rem;
+    }
+
+    main > section {
+        padding: 2.5rem 1.25rem;
+    }
+}
