@@ -1,0 +1,957 @@
+/* ==========================================================================
+   HOLLYWOOD REVUE — styles.css
+   Colours: black, white and 90 % grey, plus two blurred glows in "Darken"
+   blend mode behind sections: green (Spotlight) and red (Announcements).
+   One typeface: Afacad. Type sizes follow the size guide (section 1).
+   Every container has 8 px rounded corners.
+
+   Contents
+   1.  Design tokens
+   2.  Base & accessibility helpers
+   3.  Backdrop & glows
+   4.  Page flow (centred flex column)
+   5.  Header & navigation
+   6.  Hero
+   7.  Section headings
+   8.  About
+   9.  Movie Spotlight
+   10. Through the Decades
+   11. Announcements
+   12. Footer
+   13. Larger screens
+   14. Motion (only without a reduced-motion preference)
+   ========================================================================== */
+
+
+/* 1. Design tokens
+   ========================================================================== */
+
+:root {
+  /* Colours */
+  --black: #000;
+  --white: #fff;
+  --grey:  #e6e6e6;                 /* 90 % grey */
+  --green: #00ff71;                 /* glow */
+  --red:   #ff000f;                 /* glow */
+
+  /* Type: Afacad only */
+  --font: "Afacad", system-ui, sans-serif;
+
+  /* Size guide */
+  --fs-128: 8rem;
+  --fs-96:  6rem;
+  --fs-64:  4rem;
+  --fs-40:  2.5rem;
+  --fs-24:  1.5rem;
+  --fs-20:  1.25rem;
+  --fs-18:  1.125rem;
+  --fs-14:  0.875rem;
+  --fs-10:  0.625rem;
+
+  /* Sizes that step up on larger screens (section 13) */
+  --size-hero:    var(--fs-40);
+  --size-display: var(--fs-40);     /* Announcements title */
+  --size-section: var(--fs-40);     /* section headings, decade years */
+  --size-card:    var(--fs-24);     /* movie titles */
+
+  /* Shape */
+  --radius: 8px;
+  --shadow: 0 1rem 2rem rgb(0 0 0 / 0.5);
+
+  /* Layout */
+  --header-h: 3.5rem;
+  --page-w: 88rem;                  /* width of every section */
+  --text-w: 64rem;                  /* footer */
+  --edge: 20px;                     /* outer margin on each side */
+  --bleed: max(var(--edge), (100vw - var(--page-w)) / 2);  /* section edge to screen edge */
+  --section-gap: clamp(5rem, 11vw, 9rem);
+  --section-gap-extra: clamp(2.5rem, 6vw, 6rem);  /* added after the introduction */
+
+  /* Focus ring (flipped to black on light surfaces) */
+  --focus: var(--white);
+}
+
+
+/* 2. Base & accessibility helpers
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: var(--header-h);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  margin: 0;
+  overflow-x: clip;
+  font-family: var(--font);
+  font-size: var(--fs-18);
+  line-height: 1.6;
+  color: var(--grey);
+  background: var(--black);
+}
+
+h1, h2, h3, p, ul, ol {
+  margin: 0;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--white);
+}
+
+ul, ol {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+cite {
+  font-style: italic;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+#main:focus {
+  outline: none;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  --focus: var(--black);
+
+  position: absolute;
+  top: 0;
+  left: 1rem;
+  z-index: 1001;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 var(--radius) var(--radius);
+  text-decoration: none;
+  color: var(--black);
+  background: var(--white);
+  transform: translateY(-110%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+
+/* 3. Backdrop & glows
+   ========================================================================== */
+
+/* One still covers the whole page: blurred and at 35 % opacity */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--black);         /* solid base, so the glows have something to darken */
+}
+
+.backdrop__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+  filter: grayscale(1) blur(8px);
+  transform: scale(1.05);           /* hides the soft edge left by the blur */
+}
+
+/* Coloured glow behind a section: sits under the content, so nothing is tinted.
+   The parent section must be position: relative. */
+.glow {
+  position: absolute;
+  inset: -4rem calc(-1 * var(--bleed));
+  z-index: -1;
+  mix-blend-mode: darken;
+  filter: blur(500px);
+  box-shadow: 0 2rem 4rem rgb(0 0 0 / 0.6);
+  pointer-events: none;
+}
+
+.glow--green { background: var(--green); }
+.glow--red   { background: var(--red); }
+
+
+/* 4. Page flow: every section centred in one flex column
+   ========================================================================== */
+
+.page-flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--section-gap);
+  padding-bottom: var(--section-gap);
+}
+
+.page-flow > section {
+  width: min(100% - 2 * var(--edge), var(--page-w));
+}
+
+/* More whitespace between the sections that follow the introduction */
+.page-flow > .about ~ section {
+  margin-top: var(--section-gap-extra);
+}
+
+
+/* 5. Header & navigation
+   ========================================================================== */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-h);
+  border-bottom: 1px solid rgb(255 255 255 / 0.12);
+  background: rgb(0 0 0 / 0.9);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .site-header {
+    background: rgb(0 0 0 / 0.55);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+}
+
+.site-nav,
+.site-nav__list {
+  height: 100%;
+}
+
+.site-nav__list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
+.site-nav__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.5rem;
+  font-size: var(--fs-14);
+  letter-spacing: 0.3em;
+  text-decoration: none;
+}
+
+.site-nav__link:hover {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 0.4em;
+}
+
+
+/* 6. Hero
+   ========================================================================== */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  min-height: 70vh;
+  min-height: 70svh;
+  text-align: center;
+}
+
+.hero__title {
+  font-size: var(--size-hero);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--grey);
+  text-shadow: 0.03em 0.06em 0.05em rgb(0 0 0 / 0.6);
+}
+
+.hero__line {
+  display: block;
+  margin-right: -0.18em;            /* balances the trailing letter-spacing */
+}
+
+.hero__subtitle {
+  font-size: var(--fs-24);
+  font-style: italic;
+}
+
+
+/* 7. Section headings: title on a dark block with a thin red line
+   ========================================================================== */
+
+.block-heading {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.block-heading__title {
+  padding: 0.1em 0.5em;
+  border-radius: var(--radius);
+  font-size: var(--size-section);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  background: rgb(0 0 0 / 0.55);
+}
+
+.accent-line {
+  display: block;
+  height: 4px;
+  margin-inline: 0.5em;
+  border-radius: 2px;
+  background: var(--red);
+}
+
+
+/* 8. About: heading on top of a light card
+   ========================================================================== */
+
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.about__title {
+  font-size: var(--size-section);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.about__card {
+  --focus: var(--black);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 44rem;
+  padding: clamp(1.75rem, 5vw, 3rem);
+  border-radius: var(--radius);
+  font-size: var(--fs-20);
+  color: var(--black);
+  background: var(--grey);
+  box-shadow: var(--shadow);
+}
+
+.about__text:first-child {
+  font-style: italic;               /* italic as the accent */
+}
+
+
+/* 9. Movie Spotlight: staggered cards, text alternating left and right
+   ========================================================================== */
+
+.spotlight {
+  position: relative;               /* anchors the green glow */
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.spotlight__list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 7vw, 5.5rem);
+}
+
+/* Sprocket-hole strips above and below the stack */
+.spotlight__list::before,
+.spotlight__list::after {
+  content: "";
+  height: 22px;
+  margin-inline: calc(var(--edge) / 2 - var(--bleed));
+  background: linear-gradient(90deg, transparent 6px, var(--green) 6px 18px, transparent 18px) 0 50% / 24px 9px repeat-x;
+}
+
+/* One movie: picture with a text card overlapping it */
+.movie {
+  display: flex;
+  flex-direction: column;
+}
+
+.movie__image {
+  width: 100%;
+  aspect-ratio: 925 / 620;
+  object-fit: cover;
+  border-radius: var(--radius);
+  filter: grayscale(1) contrast(1.05);
+  background: var(--black);
+}
+
+.movie__card {
+  --focus: var(--green);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: -3rem 0.75rem 0;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: var(--radius);
+  background: rgb(0 0 0 / 0.75);
+  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 0.55);
+}
+
+.movie__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.75rem;
+  font-size: var(--fs-24);
+  color: var(--green);
+}
+
+.movie__genre {
+  font-style: italic;
+}
+
+.movie__title {
+  font-size: var(--size-card);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--grey);
+}
+
+.movie__link {
+  padding-block: 0.5rem;
+  font-size: var(--fs-14);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-underline-offset: 0.35em;
+  color: var(--green);
+}
+
+.movie__link:hover {
+  color: var(--white);
+}
+
+
+/* 10. Through the Decades: staggered timeline
+   ========================================================================== */
+
+.decades {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.decades__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.decade {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 40rem;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-left: 4px solid var(--grey);
+  border-radius: var(--radius);
+  background: rgb(0 0 0 / 0.7);
+  box-shadow: var(--shadow);
+}
+
+.decade__years {
+  font-size: var(--size-section);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--white);
+}
+
+.decade__title {
+  font-size: var(--fs-24);
+}
+
+.decade__example {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(255 255 255 / 0.2);
+}
+
+.decade__example cite {
+  color: var(--white);
+}
+
+.decade__label {
+  margin-right: 0.4rem;
+  font-size: var(--fs-14);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+
+/* 11. Announcements
+   ========================================================================== */
+
+.announcements {
+  position: relative;               /* anchors the red glow */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.announcements__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.announcements__title {
+  font-size: var(--size-display);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.announcements__caption {
+  font-size: var(--fs-20);
+  font-style: italic;
+}
+
+/* Sort buttons above the search bar */
+.news-tools {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: min(100%, 32rem);
+}
+
+.news-sort {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.news-sort__label {
+  font-size: var(--fs-24);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.news-sort__options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.sort-button {
+  min-height: 44px;
+  padding: 0 0.5rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  font: inherit;
+  text-transform: uppercase;
+  color: var(--grey);
+  background: transparent;
+  cursor: pointer;
+}
+
+.sort-button:hover,
+.sort-button[aria-pressed="true"] {
+  color: var(--white);
+  border-bottom-color: var(--white);
+}
+
+.news-search {
+  position: relative;
+  width: 100%;
+}
+
+.news-search__icon {
+  position: absolute;
+  top: 50%;
+  left: 1.1rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  translate: 0 -50%;
+  fill: none;
+  stroke: var(--grey);
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.news-search__input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0 1.25rem 0 3rem;
+  border: 1px solid rgb(255 255 255 / 0.4);
+  border-radius: var(--radius);
+  font: inherit;
+  color: var(--white);
+  background: rgb(0 0 0 / 0.6);
+}
+
+.news-search__input::placeholder {
+  color: var(--grey);
+  opacity: 0.75;
+}
+
+.news-empty {
+  font-style: italic;
+}
+
+.announcements__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  gap: 1.5rem;
+  width: min(100%, 76rem);
+  text-align: left;
+}
+
+/* Card: black mount, picture on the left, light text panel on the right */
+.news {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  border-radius: var(--radius);
+  color: var(--black);
+  background: var(--black);
+  box-shadow: var(--shadow);
+}
+
+.news:hover,
+.news:has(a:focus-visible) {
+  transform: scale(1.02);           /* visual feedback: grows by 2 % */
+  box-shadow: 0 1.25rem 2.25rem rgb(0 0 0 / 0.6);
+}
+
+.news__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radius);
+  filter: grayscale(1);
+  background: var(--black);
+}
+
+.news__image--record {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.record {
+  width: min(70%, 9rem);
+  height: auto;
+}
+
+.record__vinyl  { fill: var(--black); }
+.record__groove { fill: none; stroke: var(--grey); stroke-opacity: 0.25; stroke-width: 1; }
+.record__label  { fill: var(--grey); }
+
+.news__body {
+  --focus: var(--black);
+
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--radius);
+  background: var(--grey);
+}
+
+.news__tag,
+.news__date {
+  font-size: var(--fs-14);
+}
+
+.news__tag {
+  font-style: italic;
+}
+
+.news__date {
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.news__title {
+  font-size: var(--fs-20);
+  color: var(--black);
+}
+
+.news__title a {
+  text-decoration: none;
+}
+
+/* The whole card is clickable through the title link */
+.news__title a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.news__title a:focus-visible {
+  outline: none;
+}
+
+.news:has(a:focus-visible) {
+  outline: 3px solid var(--white);
+  outline-offset: 4px;
+}
+
+.news:hover .news__title a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.news__text {
+  line-height: 1.45;
+}
+
+/* Picture on the left, text on the right from small tablets up */
+@media (min-width: 30em) {
+  .news {
+    flex-direction: row;
+  }
+
+  .news__image {
+    flex: 0 0 32%;
+    width: 32%;
+    height: auto;
+    min-height: 11rem;
+    aspect-ratio: auto;
+  }
+}
+
+
+/* 12. Footer
+   ========================================================================== */
+
+.site-footer {
+  padding: 3.5rem var(--edge) 2rem;
+  border-top: 1px solid rgb(255 255 255 / 0.15);
+}
+
+.site-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem 4rem;
+  max-width: var(--text-w);
+  margin: 0 auto;
+}
+
+.site-footer__inner > section {
+  flex: 1 1 18rem;
+}
+
+.site-footer__title {
+  margin-bottom: 1rem;
+  font-size: var(--fs-18);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.site-footer a {
+  display: inline-block;
+  padding-block: 0.35rem;
+  text-underline-offset: 0.2em;
+}
+
+.site-footer a:hover {
+  color: var(--white);
+}
+
+.disclosure {
+  border-bottom: 1px solid rgb(255 255 255 / 0.15);
+}
+
+.disclosure summary {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 44px;
+  list-style: none;
+  cursor: pointer;
+}
+
+.disclosure summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Chevron that turns when opened */
+.disclosure summary::before {
+  content: "";
+  width: 0.45rem;
+  height: 0.45rem;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+
+.disclosure[open] summary::before {
+  transform: rotate(135deg);
+}
+
+.disclosure p {
+  padding-bottom: 1rem;
+}
+
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: var(--text-w);
+  margin: 3rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgb(255 255 255 / 0.15);
+  font-size: var(--fs-14);
+}
+
+
+/* 13. Larger screens
+   ========================================================================== */
+
+/* Tablets and up (768 px): bigger steps from the size guide */
+@media (min-width: 48em) {
+  :root {
+    --size-hero:    var(--fs-64);
+    --size-display: var(--fs-64);
+    --size-section: var(--fs-64);
+    --size-card:    var(--fs-40);
+  }
+}
+
+/* Wide screens (900 px): staggered layouts */
+@media (min-width: 56.25em) {
+
+  /* Spotlight: each movie takes 85 % of the width, stepping left and right.
+     The card overlaps the picture. */
+  .movie {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    align-items: center;
+    width: 85%;
+  }
+
+  .movie__image {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .movie__card {
+    grid-row: 1;
+    grid-column: 1;
+    margin: 0 -4rem 0 0;
+  }
+
+  /* Even movies: text on the right, card pushed to the right edge */
+  .movie:nth-child(even) {
+    align-self: flex-end;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  }
+
+  .movie:nth-child(even) .movie__image { grid-column: 1; }
+
+  .movie:nth-child(even) .movie__card {
+    grid-column: 2;
+    margin: 0 0 0 -4rem;
+  }
+
+  /* Decades: cards zig-zag left and right, overlapping a little vertically */
+  .decades__list {
+    gap: 0;
+  }
+
+  .decade {
+    width: 48%;
+  }
+
+  .decade + .decade {
+    margin-top: -2.5rem;
+  }
+
+  .decade:nth-child(even) {
+    align-self: flex-end;
+  }
+}
+
+/* Large screens (1200 px): the biggest display sizes */
+@media (min-width: 75em) {
+  :root {
+    --size-hero:    var(--fs-128);
+    --size-display: var(--fs-96);
+  }
+}
+
+
+/* 14. Motion (only without a reduced-motion preference)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .news {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .disclosure summary::before {
+    transition: transform 0.2s ease;
+  }
+}
