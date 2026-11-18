@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Hollywood Revue: a community archive of the golden age of moving pictures, with a movie spotlight, a walk through the film decades and news from the vaults.">
+  <meta name="color-scheme" content="dark">
+  <title>Hollywood Revue</title>
+
+  <!-- Font: Afacad, the only typeface on the site -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap">
+
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+
+  <!-- Site-wide background: one blurred still behind every section -->
+  <div class="backdrop" aria-hidden="true">
+    <img class="backdrop__image" src="images/roaring-twenties-1939.webp" alt="">
+  </div>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary">
+      <ul class="site-nav__list">
+        <li><a class="site-nav__link" href="#home">Home</a></li>
+        <li><a class="site-nav__link" href="#decades">Archive</a></li>
+        <li><a class="site-nav__link" href="#announcements">News</a></li>
+        <li><a class="site-nav__link" href="#sources">Sources</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main" class="page-flow" tabindex="-1">
+
+    <!-- ============================================================
+         1. HOME: welcome title
+         ============================================================ -->
+    <section id="home" class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="hero__title">
+        <span class="hero__line">Hollywood</span>
+        <span class="hero__line">Revue</span>
+      </h1>
+      <p class="hero__subtitle">(The Golden Age of Moving Pictures)</p>
+    </section>
+
+    <!-- ============================================================
+         2. ABOUT: the purpose of the site
+         ============================================================ -->
+    <section id="about" class="about" aria-labelledby="about-title">
+      <h2 id="about-title" class="about__title">About the Revue</h2>
+
+      <div class="about__card">
+        <p class="about__text">The Hollywood Revue is a title for a community, passionate for the movies of the golden age of Hollywood movie production.</p>
+        <p class="about__text">Whether it's the obscure, lost or partially complete archives, we work with current conservation efforts to recover any trace of film and make sure they aren't left to be forgotten.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3. MOVIE SPOTLIGHT: five staggered cards
+         ------------------------------------------------------------
+         Odd movies: text on the left. Even movies: text on the right.
+         To add a movie: copy one <li> block.
+         ============================================================ -->
+    <section id="spotlight" class="spotlight" aria-labelledby="spotlight-title">
+      <!-- Blurred green glow behind the section ("Darken" blend mode) -->
+      <div class="glow glow--green" aria-hidden="true"></div>
+
+      <header class="block-heading">
+        <h2 id="spotlight-title" class="block-heading__title">Movie Spotlight</h2>
+        <span class="accent-line" aria-hidden="true"></span>
+      </header>
+
+      <ol class="spotlight__list">
+        <li class="movie">
+          <img class="movie__image" src="images/show-of-shows-1929.jpg" width="925" height="620" alt="Two performers in tuxedo and cap standing before a stage curtain.">
+          <div class="movie__card">
+            <p class="movie__meta"><time datetime="1929">1929</time> <span class="movie__genre">Musical revue</span></p>
+            <h3 class="movie__title">The Show of Shows</h3>
+            <p class="movie__text">Warner Bros. paraded nearly its whole roster of stars through this all-talking, all-singing revue, much of it in early two-colour Technicolor.</p>
+            <a class="movie__link" href="#spotlight">Learn more<span class="visually-hidden"> about The Show of Shows</span></a>
+          </div>
+        </li>
+
+        <li class="movie">
+          <img class="movie__image" src="images/flying-deuces-1939.jpg" width="925" height="620" alt="Laurel and Hardy, wide-eyed, gripping the steering wheels of a runaway vehicle." loading="lazy">
+          <div class="movie__card">
+            <p class="movie__meta"><time datetime="1939">1939</time> <span class="movie__genre">Comedy</span></p>
+            <h3 class="movie__title">The Flying Deuces</h3>
+            <p class="movie__text">Heartbroken Ollie drags Stan into the French Foreign Legion, and a stolen aeroplane sends them both spinning into the sky.</p>
+            <a class="movie__link" href="#spotlight">Learn more<span class="visually-hidden"> about The Flying Deuces</span></a>
+          </div>
+        </li>
+
+        <li class="movie">
+          <img class="movie__image" src="images/safety-last-1923.jpg" width="925" height="620" alt="Harold Lloyd clinging to the side of a tall building above a busy street." loading="lazy">
+          <div class="movie__card">
+            <p class="movie__meta"><time datetime="1923">1923</time> <span class="movie__genre">Silent comedy</span></p>
+            <h3 class="movie__title">Safety Last!</h3>
+            <p class="movie__text">Harold Lloyd climbs a department store wall to win a bet, and ends up hanging from the most famous clock in cinema.</p>
+            <a class="movie__link" href="#spotlight">Learn more<span class="visually-hidden"> about Safety Last!</span></a>
+          </div>
+        </li>
+
+        <li class="movie">
+          <img class="movie__image" src="images/gone-with-the-wind-1939.jpg" width="925" height="620" alt="Clark Gable embracing Vivien Leigh as Rhett Butler and Scarlett O'Hara." loading="lazy">
+          <div class="movie__card">
+            <p class="movie__meta"><time datetime="1939">1939</time> <span class="movie__genre">Historical drama</span></p>
+            <h3 class="movie__title">Gone with the Wind</h3>
+            <p class="movie__text">Scarlett O'Hara survives war and Reconstruction in the epic that won eight competitive Academy Awards, Best Picture among them.</p>
+            <a class="movie__link" href="#spotlight">Learn more<span class="visually-hidden"> about Gone with the Wind</span></a>
+          </div>
+        </li>
+
+        <li class="movie">
+          <img class="movie__image" src="images/roaring-twenties-1939.webp" width="925" height="620" alt="Three men in pinstripe suits and fedoras, two holding revolvers, in front of whisky crates." loading="lazy">
+          <div class="movie__card">
+            <p class="movie__meta"><time datetime="1939">1939</time> <span class="movie__genre">Crime drama</span></p>
+            <h3 class="movie__title">The Roaring Twenties</h3>
+            <p class="movie__text">James Cagney and Humphrey Bogart play veterans of the Great War who turn to bootlegging in Raoul Walsh's Prohibition saga.</p>
+            <a class="movie__link" href="#spotlight">Learn more<span class="visually-hidden"> about The Roaring Twenties</span></a>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============================================================
+         4. THROUGH THE DECADES: staggered timeline, 1900s to 1960s
+         ------------------------------------------------------------
+         Each decade: what the scene was like, plus one lesser-known
+         film worth seeking out.
+         ============================================================ -->
+    <section id="decades" class="decades" aria-labelledby="decades-title">
+      <header class="block-heading">
+        <h2 id="decades-title" class="block-heading__title">Through the Decades</h2>
+        <span class="accent-line" aria-hidden="true"></span>
+      </header>
+
+      <ol class="decades__list">
+        <li class="decade">
+          <p class="decade__years"><time datetime="1900">1900s</time></p>
+          <h3 class="decade__title">The nickelodeon years</h3>
+          <p class="decade__text">Storefront theatres charging a nickel spread through American cities after 1905, and films grew from single shots into short stories with cuts, chases and camera tricks.</p>
+          <p class="decade__example"><span class="decade__label">Seek out</span> <cite>Dream of a Rarebit Fiend</cite> (1906), Edwin S. Porter. A man who ate too much Welsh rarebit watches his bed fly over the city, built from double exposures and miniatures.</p>
+        </li>
+
+        <li class="decade">
+          <p class="decade__years"><time datetime="1910">1910s</time></p>
+          <h3 class="decade__title">Westward to Hollywood</h3>
+          <p class="decade__text">The Nestor company opened Hollywood's first studio in 1911, and the industry soon followed the sunshine west. Features grew longer, and women directed some of the boldest work of the decade.</p>
+          <p class="decade__example"><span class="decade__label">Seek out</span> <cite>Suspense</cite> (1913), Lois Weber and Phillips Smalley. A one-reel thriller whose three-way split screen follows a mother, an intruder and a husband racing home.</p>
+        </li>
+
+        <li class="decade">
+          <p class="decade__years"><time datetime="1920">1920s</time></p>
+          <h3 class="decade__title">Silence at its peak</h3>
+          <p class="decade__text">Beyond Lloyd and Keaton, studios gave European newcomers room to experiment with moving cameras and colour tinting, right up until the talkies arrived in 1927.</p>
+          <p class="decade__example"><span class="decade__label">Seek out</span> <cite>Lonesome</cite> (1928), Paul Fejos. Two lonely New York workers meet at Coney Island in a part-talkie with hand-coloured sequences, long overlooked.</p>
+        </li>
+
+        <li class="decade">
+          <p class="decade__years"><time datetime="1930">1930s</time></p>
+          <h3 class="decade__title">Talkies with nerve</h3>
+          <p class="decade__text">Until the Production Code was strictly enforced in mid-1934, studios turned out fast, frank pictures about money, desire and the Depression.</p>
+          <p class="decade__example"><span class="decade__label">Seek out</span> <cite>Employees' Entrance</cite> (1933), Roy Del Ruth. Warren William plays a ruthless department-store manager in a drama the censors would not have passed a year later.</p>
+        </li>
+
+        <li class="decade">
+          <p class="decade__years"><time datetime="1940">1940s</time></p>
+          <h3 class="decade__title">War, noir and poverty row</h3>
+          <p class="decade__text">While the major studios made morale boosters, small outfits on tiny budgets made the bleak crime pictures French critics would later call film noir.</p>
+          <p class="decade__example"><span class="decade__label">Seek out</span> <cite>Detour</cite> (1945), Edgar G. Ulmer. A hitchhiking pianist drifts into disaster in a cheap Producers Releasing Corporation picture now in the National Film Registry.</p>
+        </li>
+
+        <li class="decade">
+          <p class="decade__years"><time datetime="1950">1950s</time></p>
+          <h3 class="decade__title">Widescreen and the streets</h3>
+          <p class="decade__text">Studios fought television with CinemaScope and colour, while a few independents carried lightweight cameras out onto real streets.</p>
+          <p class="decade__example"><span class="decade__label">Seek out</span> <cite>Little Fugitive</cite> (1953), Morris Engel, Ruth Orkin and Ray Ashley. A small boy runs away to Coney Island; François Truffaut credited it with inspiring the French New Wave.</p>
+        </li>
+
+        <li class="decade">
+          <p class="decade__years"><time datetime="1960">1960s</time></p>
+          <h3 class="decade__title">The old studios fade</h3>
+          <p class="decade__text">The studio system came apart, and in 1968 the Production Code gave way to the ratings system. Outside the studios, filmmakers recorded lives Hollywood had ignored.</p>
+          <p class="decade__example"><span class="decade__label">Seek out</span> <cite>The Exiles</cite> (1961), Kent Mackenzie. One night with young Native Americans in Los Angeles's Bunker Hill, barely seen for decades until the UCLA Film &amp; Television Archive restored it.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============================================================
+         5. ANNOUNCEMENTS: newly added to the archive
+         ============================================================ -->
+    <section id="announcements" class="announcements" aria-labelledby="announcements-title">
+      <!-- Blurred red glow behind the section ("Darken" blend mode) -->
+      <div class="glow glow--red" aria-hidden="true"></div>
+
+      <header class="announcements__header">
+        <h2 id="announcements-title" class="announcements__title">Announcements</h2>
+        <p class="announcements__caption">Take a close look at the latest news and findings from our community.</p>
+      </header>
+
+      <!-- Sort and search (shown by js/main.js; without it every card is simply listed) -->
+      <form class="news-tools" role="search" aria-label="Announcements" hidden data-news-tools>
+        <div class="news-sort" role="group" aria-labelledby="news-sort-label">
+          <p id="news-sort-label" class="news-sort__label">Sort by:</p>
+          <div class="news-sort__options">
+            <button class="sort-button" type="button" aria-pressed="true" data-sort="date">Date</button>
+            <button class="sort-button" type="button" aria-pressed="false" data-sort="name">Name</button>
+            <button class="sort-button" type="button" aria-pressed="false" data-sort="topic">Topic</button>
+          </div>
+        </div>
+
+        <div class="news-search">
+          <label class="visually-hidden" for="news-search">Search announcements</label>
+          <svg class="news-search__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+          <input class="news-search__input" id="news-search" type="search" placeholder="Search announcements" autocomplete="off" data-news-search>
+        </div>
+      </form>
+
+      <p class="news-empty" hidden data-news-empty>No announcements match your search.</p>
+      <p class="visually-hidden" aria-live="polite" data-news-status></p>
+
+      <div class="announcements__list" data-news-list>
+        <article class="news">
+          <img class="news__image" src="images/vitaphone-varieties.jpg" width="584" height="396" alt="Title card reading Vitaphone Varieties on a pennant before a domed stage set." loading="lazy">
+          <div class="news__body">
+            <p class="news__tag">Conservation</p>
+            <h3 class="news__title"><a href="#announcements">Saving the Vitaphone shorts</a></h3>
+            <p class="news__text">Vitaphone sound lived on separate 16-inch discs. When reels and records parted ways, whole films fell silent. Newly matched shorts join the archive this month.</p>
+            <p class="news__date"><time datetime="2026-11-03">3 November 2026</time></p>
+          </div>
+        </article>
+
+        <article class="news">
+          <!-- Placeholder artwork until the Veteraphone Project has an image -->
+          <div class="news__image news__image--record">
+            <svg class="record" viewBox="0 0 100 100" role="img" aria-label="A gramophone record." focusable="false">
+              <circle cx="50" cy="50" r="48" class="record__vinyl"/>
+              <circle cx="50" cy="50" r="42" class="record__groove"/>
+              <circle cx="50" cy="50" r="36" class="record__groove"/>
+              <circle cx="50" cy="50" r="30" class="record__groove"/>
+              <circle cx="50" cy="50" r="24" class="record__groove"/>
+              <circle cx="50" cy="50" r="16" class="record__label"/>
+              <circle cx="50" cy="50" r="2" class="record__vinyl"/>
+            </svg>
+          </div>
+          <div class="news__body">
+            <p class="news__tag">Advertisement</p>
+            <h3 class="news__title"><a href="#announcements">Tune in to the Veteraphone Project</a></h3>
+            <p class="news__text">Our companion project collects the sounds of the era: early recordings, radio and the music that filled the picture palaces.</p>
+            <p class="news__date"><time datetime="2026-11-10">10 November 2026</time></p>
+          </div>
+        </article>
+
+        <article class="news">
+          <img class="news__image" src="images/gold-diggers-of-broadway-1929.jpg" width="500" height="375" alt="Dancers in feathered costumes on a grand staircase stage set beneath a giant sunburst." loading="lazy">
+          <div class="news__body">
+            <p class="news__tag">The Search</p>
+            <h3 class="news__title"><a href="#announcements">Looking for <cite>Gold Diggers of Broadway</cite></a></h3>
+            <p class="news__text">The 1929 hit that introduced &ldquo;Tiptoe Through the Tulips&rdquo; survives only in fragments. Its soundtrack is complete; the picture is not. Have you seen it?</p>
+            <p class="news__date"><time datetime="2026-11-15">15 November 2026</time></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER: sources and legal
+       ============================================================ -->
+  <footer id="sources" class="site-footer">
+    <div class="site-footer__inner">
+      <section aria-labelledby="sources-title">
+        <h2 id="sources-title" class="site-footer__title">Sources</h2>
+        <ul class="site-footer__list">
+          <li><a href="https://www.loc.gov/programs/national-film-preservation-board/film-registry/">Library of Congress: National Film Registry</a></li>
+          <li><a href="https://www.oscars.org/">Academy of Motion Picture Arts and Sciences</a></li>
+          <li><a href="https://catalog.afi.com/">AFI Catalog of Feature Films</a></li>
+          <li><a href="https://archive.org/details/movies">Internet Archive: Moving Image Archive</a></li>
+          <li><a href="https://www.tcm.com/">Turner Classic Movies</a></li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="legal-title">
+        <h2 id="legal-title" class="site-footer__title">Legal</h2>
+        <details class="disclosure">
+          <summary>Privacy</summary>
+          <p>No cookies and no tracking. Fonts are served by Google Fonts.</p>
+        </details>
+        <details class="disclosure">
+          <summary>Accessibility</summary>
+          <p>Built to WCAG 2.2 AA: keyboard operable, labelled for screen readers, and animation is switched off when your system asks for reduced motion.</p>
+        </details>
+        <details class="disclosure">
+          <summary>Image &amp; film credits</summary>
+          <p>Film stills belong to their respective rights holders and are shown for educational purposes.</p>
+        </details>
+      </section>
+    </div>
+
+    <p class="site-footer__legal">
+      <small>&copy; 2026 Hollywood Revue. A non-commercial, educational archive.</small>
+      <a href="#home">Back to top</a>
+    </p>
+  </footer>
+
+</body>
+</html>
